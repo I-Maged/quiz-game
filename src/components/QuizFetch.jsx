@@ -1,16 +1,39 @@
+import { useState } from 'react';
 import { fetchQuiz } from '../context/QuizActions';
 
 const QuizFetch = () => {
-	fetchQuiz('SQL', 'Easy', 5);
+	const [category, setCategory] = useState('');
+	const [difficulty, setDifficulty] = useState('');
+	const [questionsLength, setQuestionsLength] = useState(0);
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		fetchQuiz('Code', 'Medium', 5);
+		console.log('Form');
+		console.log('category:', category);
+		console.log('difficulty:', difficulty);
+		console.log('questionsLength:', questionsLength);
+	};
 
 	return (
-		<form className='form-control'>
+		<form
+			className='form-control'
+			onSubmit={onSubmit}
+		>
 			<h2 className='text-3xl font-bold p-6'>Choose Your Quiz</h2>
 			<div className='mb-4'>
-				<label className='label'>
+				<label
+					htmlFor='category'
+					className='label'
+				>
 					<span className='label-text'>Category</span>
 				</label>
-				<select className='select select-primary w-full max-w-xs'>
+				<select
+					className='select select-primary w-full max-w-xs'
+					id='category'
+					value={category}
+					onChange={(e) => setCategory(e.target.value)}
+				>
 					<option value='linux'>Linux</option>
 					<option value='bash'>Bash</option>
 					<option value='docker'>Docker</option>
@@ -21,20 +44,36 @@ const QuizFetch = () => {
 				</select>
 			</div>
 			<div className='mb-3'>
-				<label className='label'>
+				<label
+					htmlFor='difficulty'
+					className='label'
+				>
 					<span className='label-text'>Difficulty</span>
 				</label>
-				<select className='select select-primary w-full max-w-xs'>
+				<select
+					className='select select-primary w-full max-w-xs'
+					id='difficulty'
+					value={difficulty}
+					onChange={(e) => setDifficulty(e.target.value)}
+				>
 					<option value='Easy'>Easy</option>
 					<option value='Medium'>Medium</option>
 					<option value='Hard'>Hard</option>
 				</select>
 			</div>
 			<div className='mb-3'>
-				<label className='label'>
-					<span className='label-text'>Number of questions</span>
+				<label
+					htmlFor='questionsLength'
+					className='label'
+				>
+					<span className='label-text'>Number of Questions</span>
 				</label>
-				<select className='select select-primary w-full max-w-xs'>
+				<select
+					className='select select-primary w-full max-w-xs'
+					id='questionsLength'
+					value={questionsLength}
+					onChange={(e) => setQuestionsLength(e.target.value)}
+				>
 					<option value='1'>1</option>
 					<option value='2'>2</option>
 					<option value='3'>3</option>
@@ -57,6 +96,12 @@ const QuizFetch = () => {
 					<option value='20'>20</option>
 				</select>
 			</div>
+			<button
+				className='btn btn-neutral'
+				type='submit'
+			>
+				Start
+			</button>
 		</form>
 	);
 };
